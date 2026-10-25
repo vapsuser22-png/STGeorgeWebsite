@@ -1,0 +1,205 @@
+/* ==============================================================
+   # St. George's School Unit-II - Advanced 3D Animations & Visual Effects
+   ============================================================== */
+
+/* 3D Perspective Context */
+.perspective-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* 3D Tilt Cards */
+.tilt-card,
+.course-item,
+.facility-card-item,
+.gallery-card-item,
+.member,
+.events .card,
+.footer-col {
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+  will-change: transform;
+  position: relative;
+}
+
+/* Dynamic Specular Glare Layer for 3D Cards */
+.tilt-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  mix-blend-mode: overlay;
+}
+
+.tilt-card:hover .tilt-glare,
+.course-item:hover .tilt-glare,
+.facility-card-item:hover .tilt-glare,
+.gallery-card-item:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* Layered 3D Depth for Card Contents */
+.tilt-card:hover .badge,
+.course-item:hover .badge,
+.facility-card-item:hover i,
+.facility-card-item:hover .facility-icon-wrap,
+.gallery-card-item:hover .badge,
+.events .card:hover .badge {
+  transform: translateZ(26px);
+  transition: transform 0.35s ease;
+}
+
+.tilt-card:hover h3,
+.tilt-card:hover h4,
+.course-item:hover h3,
+.facility-card-item:hover h4,
+.gallery-card-item:hover h4,
+.events .card:hover .card-title {
+  transform: translateZ(18px);
+  transition: transform 0.35s ease;
+}
+
+.tilt-card:hover .btn,
+.course-item:hover .btn {
+  transform: translateZ(22px);
+  transition: transform 0.35s ease;
+}
+
+/* Elevated Hover Shadows with Dual Color Depth */
+.tilt-card:hover,
+.course-item:hover,
+.facility-card-item:hover,
+.gallery-card-item:hover,
+.events .card:hover {
+  box-shadow: 0 16px 36px rgba(30, 44, 68, 0.16),
+              0 6px 16px rgba(123, 17, 19, 0.1) !important;
+}
+
+/* Floating Elements (Subtle periodic hover float) */
+@keyframes stg-float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating-element,
+.badge-floating {
+  animation: stg-float 4s ease-in-out infinite;
+}
+
+/* Shimmer Highlight on Badges */
+@keyframes stg-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.badge-shimmer {
+  background: linear-gradient(90deg, rgba(123, 17, 19, 0.95) 0%, rgba(197, 160, 89, 0.95) 50%, rgba(123, 17, 19, 0.95) 100%);
+  background-size: 200% auto;
+  animation: stg-shimmer 5s linear infinite;
+}
+
+/* Scroll-Linked Sticky Header Dynamic Depth */
+#header.header-scrolled {
+  background-color: rgba(242, 241, 236, 0.94) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  box-shadow: 0 4px 20px rgba(30, 44, 68, 0.12),
+              0 1px 4px rgba(123, 17, 19, 0.08) !important;
+  border-bottom-color: rgba(197, 160, 89, 0.45) !important;
+}
+
+/* Interactive Dropdown 3D Scale Entrance */
+.navbar .dropdown ul {
+  transform: perspective(600px) rotateX(-8deg) translateY(10px);
+  transform-origin: top center;
+  transition: opacity 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              visibility 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.navbar .dropdown:hover > ul {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: perspective(600px) rotateX(0deg) translateY(0) !important;
+}
+
+/* Gallery Photo 3D Hover Zoom */
+.gallery-card-item {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.gallery-card-item img {
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+}
+
+.gallery-card-item:hover img {
+  transform: scale(1.055) rotate(0.4deg);
+  filter: brightness(1.04);
+}
+
+/* Interactive Button 3D Press State */
+.btn:active,
+.btn-erp-login:active,
+.btn-apply-now:active {
+  transform: scale(0.96) translateY(1px) !important;
+}
+
+/* Section Title Underline Reveal Animation */
+.section-title h2::after {
+  transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.section-title:hover h2::after {
+  width: 90px !important;
+}
+
+/* Scroll-Triggered Stagger Reveals */
+.stg-reveal-init {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition: opacity 0.65s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.stg-reveal-visible {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card,
+  .course-item,
+  .facility-card-item,
+  .gallery-card-item,
+  .floating-element,
+  .badge-shimmer,
+  .stg-reveal-init {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+

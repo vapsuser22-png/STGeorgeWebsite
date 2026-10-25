@@ -1,0 +1,183 @@
+/* ==============================================================
+   # St. George's School Unit-II - Advanced Custom Cursor Engine
+   ============================================================== */
+
+/* Text selection in school colors */
+::selection {
+  background: #7B1113 !important;
+  color: #FFE6A5 !important;
+}
+
+::-moz-selection {
+  background: #7B1113 !important;
+  color: #FFE6A5 !important;
+}
+
+/* Hide native cursor only on hover-capable fine pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-enabled,
+  body.custom-cursor-enabled a,
+  body.custom-cursor-enabled button,
+  body.custom-cursor-enabled [role="button"],
+  body.custom-cursor-enabled .btn,
+  body.custom-cursor-enabled .nav-link,
+  body.custom-cursor-enabled input[type="submit"],
+  body.custom-cursor-enabled input[type="button"],
+  body.custom-cursor-enabled .swiper-pagination-bullet,
+  body.custom-cursor-enabled .gallery-item,
+  body.custom-cursor-enabled #stg-chat-bubble,
+  body.custom-cursor-enabled .chat-chip,
+  body.custom-cursor-enabled .chat-send-btn {
+    cursor: none !important;
+  }
+
+  /* Keep text selection cursor for inputs and textareas */
+  body.custom-cursor-enabled input[type="text"],
+  body.custom-cursor-enabled input[type="email"],
+  body.custom-cursor-enabled input[type="password"],
+  body.custom-cursor-enabled input[type="number"],
+  body.custom-cursor-enabled input[type="search"],
+  body.custom-cursor-enabled textarea {
+    cursor: text !important;
+  }
+}
+
+/* Custom Cursor Elements (Hardware Accelerated) */
+.stg-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #7B1113;
+  border: 1.5px solid #FFE6A5;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000000;
+  transform: translate3d(-50%, -50%, 0);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease, transform 0.05s linear;
+  box-shadow: 0 0 10px rgba(123, 17, 19, 0.45);
+  will-change: transform;
+}
+
+.stg-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(197, 160, 89, 0.7);
+  background: rgba(123, 17, 19, 0.03);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate3d(-50%, -50%, 0);
+  transition: width 0.28s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.28s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.25s ease,
+              background-color 0.25s ease,
+              box-shadow 0.25s ease,
+              opacity 0.25s ease;
+  will-change: transform;
+}
+
+/* Hidden state (when mouse leaves window or before first movement) */
+.stg-cursor-dot.cursor-hidden,
+.stg-cursor-ring.cursor-hidden {
+  opacity: 0 !important;
+}
+
+/* Hover States */
+.stg-cursor-ring.cursor-hover {
+  width: 54px;
+  height: 54px;
+  border-color: #7B1113;
+  background: rgba(123, 17, 19, 0.1);
+  box-shadow: 0 0 16px rgba(197, 160, 89, 0.35);
+}
+
+.stg-cursor-dot.cursor-hover {
+  width: 6px;
+  height: 6px;
+  background-color: #C5A059;
+  border-color: #FFFFFF;
+}
+
+/* Card / Image Viewing Hover State */
+.stg-cursor-ring.cursor-view {
+  width: 64px;
+  height: 64px;
+  border-color: #C5A059;
+  background: rgba(30, 44, 68, 0.14);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stg-cursor-dot.cursor-view {
+  width: 10px;
+  height: 10px;
+  background-color: #FFE6A5;
+}
+
+/* Click Active State */
+.stg-cursor-ring.cursor-active {
+  width: 28px;
+  height: 28px;
+  border-color: #560A0C;
+  background: rgba(123, 17, 19, 0.25);
+  transform: translate3d(-50%, -50%, 0) scale(0.9);
+}
+
+.stg-cursor-dot.cursor-active {
+  transform: translate3d(-50%, -50%, 0) scale(1.4);
+  background-color: #FFE6A5;
+}
+
+/* Click Ripple Effect */
+.stg-click-ripple {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999998;
+  border: 2px solid rgba(197, 160, 89, 0.85);
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.25) 0%, rgba(123, 17, 19, 0) 70%);
+  transform: translate3d(-50%, -50%, 0) scale(0);
+  animation: stg-ripple-expand 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes stg-ripple-expand {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(0.5);
+  }
+  100% {
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(1.6);
+  }
+}
+
+/* Disable completely on mobile / touchscreens */
+@media (hover: none) or (pointer: coarse) {
+  .stg-cursor-dot,
+  .stg-cursor-ring,
+  .stg-click-ripple {
+    display: none !important;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .stg-cursor-dot,
+  .stg-cursor-ring {
+    transition: none !important;
+  }
+  .stg-click-ripple {
+    animation: none !important;
+    display: none !important;
+  }
+}
